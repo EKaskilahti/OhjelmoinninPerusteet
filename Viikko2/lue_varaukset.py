@@ -24,21 +24,40 @@ def main():
     with open(varaukset, "r", encoding="utf-8") as f:
         varaus = f.read().strip()
 
-    # Tulostetaan varaus konsoliin
-    print(varaus)
+    # Jaetaan tiedot osiin
+    osat = varaus.split('|')
+    
+    from datetime import datetime
 
-    # Kokeile näitä
-    #print(varaus.split('|'))
-    #varausId = varaus.split('|')[0]
-    #print(varausId)
-    #print(type(varausId))
-    """
-    Edellisen olisi pitänyt tulostaa numeron 123, joka
-    on oletuksena tekstiä.
+    # Tehdään muuttujat
+    varausId = int(osat[0])
+    varaaja = str(osat[1])
+    paiva = datetime.strptime(osat[2], "%Y-%m-%d").date()
+    aika = datetime.strptime(osat[3], "%H:%M").time()
+    tuntimaara = int(osat[4])
+    tuntihinta = float(osat[5])
+    maksettu = bool(osat[6].strip() == "True")
+    kohde = str(osat[7])
+    puhelin = str(osat[8])
+    sahkoposti = str(osat[9])
 
-    Voit kokeilla myös vaihtaa kohdan [0] esim. seuraavaksi [1]
-    ja testata mikä muuttuu
-    """
+    # Lasketaan kokonaishinta
+    kokonaishinta = tuntimaara * tuntihinta
+
+
+    # Tulostetaan tiedot
+    print("Varausnumero:", varausId)
+    print("Varaaja:", varaaja)
+    print("Päivämäärä:", paiva)
+    print("Aloitusaika:", aika.strftime("%H:%M"))
+    print("Tuntimäärä:", tuntimaara)
+    print("Tuntihinta:", tuntihinta, "€")
+    print("Kokonaishinta:", round(kokonaishinta, 2), "€")
+    print(f"Maksettu: {'Kyllä' if maksettu else 'Ei'}")
+    print("Kohde:", kohde)
+    print("Puhelin:", puhelin)
+    print("Sähköposti:", sahkoposti)
+
 
 if __name__ == "__main__":
     main()

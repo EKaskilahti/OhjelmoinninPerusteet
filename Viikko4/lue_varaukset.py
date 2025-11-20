@@ -95,6 +95,19 @@ def main():
         status = "Vahvistettu" if varaus[8] else "EI vahvistettu"
         print(f"- {nimi} → {status}")
     print()
+    # 4) Yhteenveto vahvistuksista
+    vahvistetut = sum(1 for v in varaukset[1:] if v[8])
+    ei_vahvistetut = len(varaukset) - 1 - vahvistetut
+    print("4) Yhteenveto vahvistuksista")
+    print(f"- Vahvistettuja varauksia: {vahvistetut} kpl")
+    print(f"- Ei-vahvistettuja varauksia: {ei_vahvistetut} kpl")
+    print()
+
+    # 5) Vahvistettujen varausten kokonaistulot
+    kokonaistulot = sum(v[7] for v in varaukset[1:] if v[8])
+    summa_str = f"{kokonaistulot:.2f}".replace(".", ",")
+    print("5) Vahvistettujen varausten kokonaistulot")
+    print(f"- Vahvistettujen varausten kokonaistulot: {summa_str} €")
 
 if __name__ == "__main__":
     main()

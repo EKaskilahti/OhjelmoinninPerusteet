@@ -63,6 +63,19 @@ def main():
         tietotyypit = [type(x).__name__ for x in varaus]
         print(" | ".join(tietotyypit))
         print("------------------------------------------------------------------------")
+    
+    
+    # 1) Vahvistetut varaukset
+    print("1) Vahvistetut varaukset")
+    for varaus in varaukset[1:]:
+        if varaus[8]:  # vahvistettu
+            nimi = varaus[1]
+            tila = varaus[9]
+            pvm = varaus[4].strftime("%d.%m.%Y")
+            klo = varaus[5].strftime("%H.%M")
+            print(f"- {nimi}, {tila}, {pvm} klo {klo}")
+    print()
+
 
 if __name__ == "__main__":
     main()

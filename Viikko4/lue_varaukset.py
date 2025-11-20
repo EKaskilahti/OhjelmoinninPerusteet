@@ -56,15 +56,15 @@ def main():
     # Jos muutat, kommentoi miksi muutit
     # Kutsutaan funkioita hae_varaukset, joka palauttaa kaikki varaukset oikeilla tietotyypeillä
     varaukset = hae_varaukset("varaukset.txt")
-    print(" | ".join(varaukset[0]))
-    print("------------------------------------------------------------------------")
-    for varaus in varaukset[1:]:
-        print(" | ".join(str(x) for x in varaus))
-        tietotyypit = [type(x).__name__ for x in varaus]
-        print(" | ".join(tietotyypit))
-        print("------------------------------------------------------------------------")
+    #print(" | ".join(varaukset[0]))
+    #print("------------------------------------------------------------------------")
+    #for varaus in varaukset[1:]:
+        #print(" | ".join(str(x) for x in varaus))
+        #tietotyypit = [type(x).__name__ for x in varaus]
+        #print(" | ".join(tietotyypit))
+        #print("------------------------------------------------------------------------")
     
-    
+
     # 1) Vahvistetut varaukset
     print("1) Vahvistetut varaukset")
     for varaus in varaukset[1:]:
@@ -76,6 +76,25 @@ def main():
             print(f"- {nimi}, {tila}, {pvm} klo {klo}")
     print()
 
+    # 2) Pitkät varaukset (≥ 3 h)
+    print("2) Pitkät varaukset (≥ 3 h)")
+    for varaus in varaukset[1:]:
+        if varaus[6] >= 3:
+            nimi = varaus[1]
+            pvm = varaus[4].strftime("%d.%m.%Y")
+            klo = varaus[5].strftime("%H.%M")
+            kesto = varaus[6]
+            tila = varaus[9]
+            print(f"- {nimi}, {pvm} klo {klo}, kesto {kesto} h, {tila}")
+    print()
+
+    # 3) Varausten vahvistusstatus
+    print("3) Varausten vahvistusstatus")
+    for varaus in varaukset[1:]:
+        nimi = varaus[1]
+        status = "Vahvistettu" if varaus[8] else "EI vahvistettu"
+        print(f"- {nimi} → {status}")
+    print()
 
 if __name__ == "__main__":
     main()

@@ -84,6 +84,7 @@ def muodosta_viikkoraportti(viikko_label: str, yhteenveto: Dict[str, Dict]) -> s
         "Päivä         Pvm         Kulutus [kWh]                 Tuotanto [kWh]",
         "             (pv.kk.vvvv)  v1      v2      v3            v1     v2     v3",
         "---------------------------------------------------------------------------"
+        
     ]
     for viikko in FI_WEEKDAYS:
         if viikko in yhteenveto:
@@ -98,7 +99,10 @@ def muodosta_viikkoraportti(viikko_label: str, yhteenveto: Dict[str, Dict]) -> s
                 f"{muotoile_luku(row['Tuotanto vaihe 2 Wh']):>6}  "
                 f"{muotoile_luku(row['Tuotanto vaihe 3 Wh']):>6}"
             )
-    lines.append("")
+    #Lisää tyhjän rivin alkuun, jotta tulostus on selkeämpi       
+    lines.insert(0, "")
+
+    lines.append("---------------------------------------------------------------------------")
     return "\n".join(lines)
 
 #Kirjoittaa raportin tiedostoon with-rakenteella.
@@ -116,8 +120,10 @@ def main() -> None:
         raportti_osat.append(muodosta_viikkoraportti(viikko, yhteenveto))
     koko_raportti = "\n".join(raportti_osat)
     tallenna_raportti("yhteenveto.txt", koko_raportti)
-    print("Raportti tallennettu tiedostoon yhteenveto.txt")
     print(koko_raportti)
+    print()
+    print("Raportti tallennettu tiedostoon yhteenveto.txt")
+    print("------------------------------------------------------------------------")
 
 
 if __name__ == "__main__":
